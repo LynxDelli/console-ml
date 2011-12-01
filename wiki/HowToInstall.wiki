@@ -1,9 +1,9 @@
-How To Install Plugin:
+=Heading1= How To Install Plugin:
 
-You need to have Firebug installed on Firefox.
-Go to project webpage - http://sirmasolutions.com/products/ml-firefox-console
-Click the green button "Add to Firefox' and the plugin will start installing. 
-Rebooting Firefox is needed after successful completion. 
-After the reboot a new tab 'ConcoleML' will be visible in Firebug. 
-Open it and click on the Log link to setup your log configuration. 
+You need to have Firebug installed on Firefox.<br>
+Go to project webpage - http://sirmasolutions.com/products/ml-firefox-console<br>
+Click the green button "Add to Firefox' and the plugin will start installing.<br> 
+Rebooting Firefox is needed after successful completion. <br>
+After the reboot a new tab 'ConcoleML' will be visible in Firebug. <br>
+Open it and click on the Log link to setup your log configuration. <br>
 Please check 'Help' for additional information.
