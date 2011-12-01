@@ -1,4 +1,4 @@
-=Heading1= How To Install Plugin:
+<h1>How To Install Plugin:</h1>
 
 You need to have Firebug installed on Firefox.<br>
 Go to project webpage - http://sirmasolutions.com/products/ml-firefox-console<br>
