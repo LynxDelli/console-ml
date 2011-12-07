@@ -7,4 +7,15 @@
 <li>You will need to restart your Firefox after successful completion; </li>
 <li>After the Firefox restart, a new tab 'ConcoleML' will be visible in Firebug. Open it and click on the Log link to setup your log configuration. </li>
 </ul>
-If you experience any problems or need further instruction, please refer to plugin's 'Help' tab.
+
+= Buttons information =
+
+<p>The Clear button clears the buffered log messages. When cliecked, only new messages will be displayed.</p>
+
+<p>The Log pull-down lets you select a configured log, edit the selected log configuration, delete the selected log configuration, or create a new log configuration.</p>
+
+<p>The Log levels pull down enables individual filters for each error class. For each enabled error class, a button appears to the right for that level (for example, licking on Info in the Log Levels pulldown will show an info button. Clicking the Info button shows all Informational messages.</p>
+
+<p>The Level+ button enables display of multiple classes of messages at once. The pulldown to the right of Level+ lets you select multiple classes of messages to be displayed by the Level+ button. Selecting Into class in the pulldown, then clicking Level+ shows the same result as clicking the Info button.</p>
+
+<p>Filter buttons (Finest, Finer, Fine, Debug, Config, Info , Warning, Notice, Error, Critical, Alert, Emergency). Clicking one will display only buffered messages of that type. These buttons are enabled or disabled using the Log levels pull-down.</p>
