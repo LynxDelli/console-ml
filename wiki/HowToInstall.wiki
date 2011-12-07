@@ -1,4 +1,4 @@
-#labels Installnotes,Buttons
+#labels Install,Buttons
 <h1>How To Install Plugin:</h1>
 
 <ul>
