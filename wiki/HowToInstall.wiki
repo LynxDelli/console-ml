@@ -1,5 +1,5 @@
 #labels Install,Buttons
-<h1>http://sirmasolutions.com/images/ladybugSmall.png How To Install Plugin:</h1>
+<h1>http://sirmasolutions.com/images/ladybugSmall.png How To Install:</h1>
 
 <ul>
 <li>You need to have Firebug installed on Firefox; </li>
@@ -11,7 +11,7 @@
 
 http://sirmasolutions.com/images/consoleML-screenshot1.jpg
 
-= http://sirmasolutions.com/images/ladybugSmall.png Buttons information =
+= http://sirmasolutions.com/images/ladybugSmall.png Buttons information: =
 
 <p>LadyBird drop-down button gives you opportunity to save Entire log or just filtered log.</p>
 
