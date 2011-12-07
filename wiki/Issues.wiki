@@ -1,5 +1,4 @@
-= Known Issues =
-<br>
+= http://sirmasolutions.com/images/ladybugSmall.png Known Issues =
 
  *  If the MarkLogic log file is too big it might not be displayed.
  *  If MarkLogic is installed on a Windows7 machine you might be required to give full rights to the MarkLogic log file or run Firefox as an administrator.
