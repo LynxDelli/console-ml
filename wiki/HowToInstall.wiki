@@ -1,5 +1,5 @@
 #labels Install,Buttons
-<h1>How To Install Plugin:</h1>
+<h1>http://sirmasolutions.com/images/ladybugSmall.png How To Install Plugin:</h1>
 
 <ul>
 <li>You need to have Firebug installed on Firefox; </li>
