@@ -11,7 +11,7 @@
 
 = Buttons information =
 
-<p>LadyBird drop-down button gives you opportunity to save Entire log or just currently displayed log.</p>
+<p>LadyBird drop-down button gives you opportunity to save Entire log or just filtered log.</p>
 
 <p>The Clear button clears the buffered log messages. When clicked, only new messages will be displayed.</p>
 
