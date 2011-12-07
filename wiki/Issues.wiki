@@ -1,7 +1,6 @@
-#summary One-sentence summary of this page.
-
 = Known Issues =
+<br>
 
-* If the MarkLogic log file is too big it might not be displayed.
-* If MarkLogic is installed on a Windows7 machine you might be required to give full rights to the MarkLogic log file or run Firefox as an administrator.
-* Sometimes the browser may need to be refreshed after the computer wakes up.
+ *  If the MarkLogic log file is too big it might not be displayed.
+ *  If MarkLogic is installed on a Windows7 machine you might be required to give full rights to the MarkLogic log file or run Firefox as an administrator.
+ *  Sometimes the browser may need to be refreshed after the computer wakes up.
