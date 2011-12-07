@@ -2,7 +2,7 @@ http://sirmasolutions.com/images/consoleML-screenshot1.jpg
 
 = http://sirmasolutions.com/images/ladybugSmall.png Buttons information =
 
-<p>LadyBird drop-down button gives you opportunity to save Entire log or just filtered log.</p>
+<p>http://sirmasolutions.com/images/ladybugSmall.png drop-down button gives you opportunity to save Entire log or just filtered log.</p>
 
 <p>The Clear button clears the buffered log messages. When clicked, only new messages will be displayed.</p>
 
