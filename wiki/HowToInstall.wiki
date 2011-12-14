@@ -6,7 +6,8 @@
 <li>Go to project webpage - http://sirmasolutions.com/products/ml-firefox-console</li>
 <li>Click the green button "Add to Firefox' and the plugin will start installing;</li>
 <li>You will need to restart your Firefox after successful completion; </li>
-<li>After the Firefox restart, a new tab 'ConcoleML' will be visible in Firebug. Open it and click on the Log link to setup your log configuration. </li>
+<li>After the Firefox restart, click F9 to open ConsoleML </li>
+<li>A new tab 'ConcoleML' will be visible in Firebug. Open it and click on the Log link to setup your log configuration. </li>
 </ul>
 
 http://sirmasolutions.com/images/consoleML-screenshot1.jpg
