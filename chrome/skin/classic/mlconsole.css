@@ -1,0 +1,199 @@
+div.ml-info {
+    background-color:lightblue;
+	color: black;
+}
+
+.noticeui
+{
+	background: url(chrome://mlconsole/skin/notice-bg.png) repeat-x 0 0;
+	color: #FFF;
+	width: 83%;
+	font-weight: normal;
+	padding: 13px 15px 0;	
+	margin-bottom: 1.5em;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	-moz-box-shadow: 1px 1px 2px rgba(0,0,0,.4);
+	-webkit-box-shadow: 1px 1px 2px rgba(0,0,0,.4);
+	box-shadow: 1px 1px 2px rgba(0,0,0,.4);
+	position: relative;
+	left: 44px;
+}
+
+.noticeui-hr{
+display: block;
+position: relative;
+padding: 0;
+margin: 2px auto;
+width: 100%;
+clear: both;
+border: none;
+border-top: 1px solid #AAA;
+border-bottom: 1px solid #FFF;
+font-size: 1px;
+line-height: 0;
+overflow: visible;}
+.noticeui div:first-child { margin-top: 10px; }
+.noticeui p { margin-bottom: 0;}
+/*.noticeui p:last-child  { margin-bottom: 0; }*/
+
+.noticeui ul { margin-left: 8px; margin-bottom: 1.5em; }
+.noticeui ul:last-child { margin-bottom: 0; }
+
+	.noticeui li { background: url(chrome://mlconsole/skin/notice-tabs.png) no-repeat 0 -95px; list-style-type: none; padding-left: 18px; margin-bottom: .75em; }
+		.noticeui-success li { background-position: 0 -95px; }
+		.noticeui-warning li { background-position: 0 -895px; }
+		.noticeui-notice li { background-position: 0 -495px; }
+		.noticeui-info li { background-position: 0 -1295px; }
+
+.noticeui h1 { font-size: 14px; font-weight: bold; margin-bottom: .65em; }
+
+.noticeui span { background: url(chrome://mlconsole/skin/icons.png) no-repeat 100% 0; width: 33px; height: 40px; margin-left: 10px; position: absolute; left: -44px; top: 9px; cursor: pointer; }
+
+
+.noticeui-finest { background-color: #CAEBA9; color: #5A9322; border: 1px solid #5A9322; }
+	.noticeui-finest span { background-position: 100% -360px;  }
+.noticeui-finer { background-color: #E2EFBA; color: #8CAD27; border: 1px solid #8CAD27; }
+	.noticeui-finer span { background-position: 100% -320px;  }
+.noticeui-fine { background-color: #F3F7DD; color: #A8BD2D; border: 1px solid #A8BD2D; }
+	.noticeui-fine span { background-position: 100% -280px;  }
+.noticeui-debug { background-color: #CDD1F1; color: #313EAE; border: 1px solid #313EAE; }
+	.noticeui-debug span { background-position: 100% -440px;  }
+.noticeui-config { background-color: #CDDBF1; color: #3163AE; border: 1px solid #3163AE; }
+	.noticeui-config span { background-position: 100% -400px;  }
+.noticeui-info { background-color: #E9E9E9; color: #747474; border: 1px solid #747474; }
+	.noticeui-info span { background-position: 100% 0px;  }
+.noticeui-warning { background-color: #FFF495; color: #CAB600; border: 1px solid #CAB600; }
+	.noticeui-warning span { background-position: 100% -40px;  }
+.noticeui-notice { background-color: #E9E9E9; color: #BF6900; border: 1px solid #747474; }
+	.noticeui-notice span { background-position: 100% 0px;  }
+.noticeui-error { background-color: #FFE16A; color: #B59100; border: 1px solid #B59100; }
+	.noticeui-error span { background-position: 100% -120px;  }
+.noticeui-critical { background-color: #ECC4BD; color: #A54230; border: 1px solid #A54230; }
+	.noticeui-critical span { background-position: 100% -200px;  }
+.noticeui-alert { background-color: #FFC680; color: #BF6900; border: 1px solid #BF6900; }
+	.noticeui-alert span { background-position: 100% -160px;  }
+.noticeui-emergency { background-color: #FB9999; color: #AE0606; border: 1px solid #AE0606; }
+	.noticeui-emergency span { background-position: 100% -240px;  }
+.noticeui-message { background-color: #FFF495; color: #CAB600; border: 1px solid #CAB600; }
+	.noticeui-message span { background-position: 100% -80px;  }
+
+/* ----------------------------- Popup window styles ----------------------------- */
+#popup-modal {
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background: #000000;
+    opacity: 0.5;
+}
+
+#custom-popup {
+    width: 550px;
+    height: 190px;
+    position: fixed;
+    top: 50%; /* 50% of window's height */
+    margin-top: -95px; /* this element's height/2 */
+    left: 50%; /* 50% of window's width */
+    margin-left: -225px; /* this element's width/2 */
+    text-align: center;
+		-moz-border-radius: 6px;
+		-webkit-border-radius: 6px;
+		border-radius: 6px;
+		-moz-box-shadow: 1px 1px 2px rgba(0,0,0,.4);
+		-webkit-box-shadow: 1px 1px 2px rgba(0,0,0,.4);
+		box-shadow: 1px 1px 2px rgba(0,0,0,.4);
+		z-index: 1001; /* this should be above popup-modal */
+		background-color: #EEEEEE;
+}
+
+#popup-title {
+    margin: 1px;
+    padding: 3px 3px 6px 3px;
+		margin: 5px;
+    text-align: left;
+		border-bottom: 1px inset #000000;
+}
+
+#popup-close-button {
+    float: right;
+}
+
+#popup-close-button a {
+    display: block;
+    width: 14px;
+    text-align: center;
+    font-size: 12px;
+    color: #555555;
+    text-decoration: none;
+}
+
+#popup-close-button a:hover {
+    color: #222222;
+}
+
+#popup-content {
+    height: 112px;
+    margin: 2px;
+    padding: 10px;
+    overflow: auto;
+    text-align: left;
+}
+/* ----------------------------- Address bar button style ----------------------------- */
+
+#toolbar-consoleml-stack[mlLogCount="0"]{
+	margin-left: 0px;
+}
+
+#toolbar-consoleml-stack[mlLogCount="0"] label.label{
+	display: none;
+}
+
+#toolbar-consoleml-stack[mlLogCount="1"]{
+	margin-right: 8px;
+}
+
+#toolbar-consoleml-stack[mlLogCount="11"]{
+	margin-right: 12px;
+}
+
+#toolbar-consoleml-stack[mlLogCount="1"] label.label,
+#toolbar-consoleml-stack[mlLogCount="11"] label.label{
+	height: 15px;
+    -moz-box-sizing: border-box;
+    font-size: 10px;
+    padding: 0 3px;
+    line-height: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 0 0 1px #EEF1F7;
+    color: #0000EE;
+    border-radius: 3px;
+    background-color: rgba(255, 0, 0, 0.9);
+    box-shadow: inset 0px 0px 1px white;
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #DBE1EB 0%,
+        #DEE4EB 80%,
+        #E7EBF3 81%
+    );
+    border-width: 1px;
+    border-style: solid;
+    border-color: #B3BBC4 #9DA4AD #868D96 #9DA4AD;
+    box-shadow: 0 0 1px rgba(0, 55, 255, 0.2) inset,
+                0 1px 0 rgba(10, 60, 240, 0.7),
+                0 0 3px rgba(20, 80, 255, 0.9);
+}
+
+#toolbar-consoleml-stack[mlLogCount="1"] label.label{
+	width: 15px;
+}
+
+#toolbar-consoleml-stack[mlLogCount="11"] label.label{
+	margin-right: 0px;
+	width: 20px;
+}

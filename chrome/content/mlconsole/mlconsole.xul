@@ -1,0 +1,149 @@
+<?xml version="1.0"?> 
+<?xml-stylesheet href="chrome://mlconsole/skin/mlconsole.css"?>
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"> 
+    <script src="chrome://mlconsole/content/mlconsole.js" type="application/x-javascript"/>
+    <commandset id="mainCommandSet">
+        <command id="cmd_viewmlLog" oncommand="Firebug.MLConsoleModel.viewLogPressed()"/>
+		<command id="cmd_clearmlLog" oncommand="Firebug.MLConsoleModel.clearLog()"/>
+		<command id="cmd_showAbout" oncommand="Firebug.MLConsoleModel.showAbout()"/>
+		<command id="cmd_showHelp" oncommand="Firebug.MLConsoleModel.showHelp()"/>
+		<command id="cmd_copyLogAll" oncommand="Firebug.MLConsoleModel.copyLog(true)"/>
+		<command id="cmd_copyLogFiltered" oncommand="Firebug.MLConsoleModel.copyLog(false)"/>
+		<command id="cmd_showCustom" oncommand="Firebug.MLConsoleModel.showCustom()"/>
+		<command id="cmd_focusMLConsole" oncommand="Firebug.MLConsoleModel.focusOnPanel()"/>
+		<command id="cmd_viewWholeLog" oncommand="Firebug.MLConsoleModel.viewWholeLog()"/>
+    </commandset>
+
+    <keyset id="mainKeyset">
+        <key id="key_focusMLConsole" keycode="VK_F9" command="cmd_focusMLConsole"/>
+		<key id="key_focusDetachMLConsole" keycode="VK_F9" modifiers="accel" oncommand="Firebug.toggleDetachBar(true, false); Firebug.MLConsoleModel.focusOnPanel()"/>
+    </keyset>
+	
+    <toolbar id="fbToolbar" align="center">
+        <hbox id="fbToolbarInner" insertbefore="fbDetachButton" flex="1" align="center">
+			<vbox id="fbToolbarVertical" insertafter="fbNetButtons" flex="1">
+            <hbox id="fbMLConsoleButtons">
+				<toolbarbutton type="menu" image="chrome://mlconsole/skin/ladybug16_2.png">
+				  <menupopup>
+					<menu id="menuCopy" label="Copy">
+						<menupopup id="copy-popup">
+							<menuitem id="menuCopyAll" label="All messages" command="cmd_copyLogAll"/>
+							<menuitem id="menuCopySelected" label="Filtered messages" command="cmd_copyLogFiltered"/>
+						</menupopup>
+					</menu>
+					<menuitem label="Help" command="cmd_showHelp"/>
+					<menuitem id="menuAbout" label="About" command="cmd_showAbout"/>
+				  </menupopup>
+				</toolbarbutton>
+				<toolbarseparator/>
+                <toolbarbutton id="clearLogButton"
+                    label="Clear" class="toolbar-text-button"
+                    tooltiptext="Clear log" command="cmd_clearmlLog"/>
+				<toolbarseparator/>
+				<toolbarbutton type="menu" label="Log">
+				  <menupopup id="logConfigurationsMenu">
+					<vbox id="logConfigurationsContainer">
+						
+					</vbox>
+					<menuseparator id="logConfigSeparator"/>
+					<menuitem label="New log configuration" class="plain" oncommand="Firebug.MLConsoleModel.newLogConfig()"/>
+					<menuitem label="Edit configuration" class="plain" oncommand="Firebug.MLConsoleModel.editLogConfig()"/>
+					<menuitem label="Delete configuration" class="plain" oncommand="Firebug.MLConsoleModel.deleteLogConfig()"/>
+				  </menupopup>
+				</toolbarbutton>
+				<toolbarseparator/>
+				<!--<toolbarbutton type="menu" label="Log levels" class="toggle">
+				  <menupopup id="checktoggle-menu">
+					  <vbox id="checktoggle-menuContainer">
+						  <menuitem label="Finest" type="checkbox" class="finest" id="checktoggle-finest" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Finer" type="checkbox" class="finer" id="checktoggle-finer" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Fine" type="checkbox" class="fine" id="checktoggle-fine" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Debug" type="checkbox" class="debug" id="checktoggle-debug" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Config" type="checkbox" class="config" id="checktoggle-config" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Info" type="checkbox" class="info" id="checktoggle-info" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Warning" type="checkbox" class="warning" id="checktoggle-warning" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Notice" type="checkbox" class="notice" id="checktoggle-notice" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Error" type="checkbox" class="error" id="checktoggle-error" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Critical" type="checkbox" class="critical" id="checktoggle-critical" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Alert" type="checkbox" class="alert" id="checktoggle-alert" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Emergency" type="checkbox" class="emergency" id="checktoggle-emergency" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+					  </vbox>
+					  <menuseparator class="none"/>
+					  <menuitem label="Select all" class="plain" oncommand="Firebug.MLConsoleModel.selectAllMenu(this.parentNode.firstChild.id); Firebug.MLConsoleModel.updateToggleButtons();"/>
+					  <menuitem label="Select none" class="plain" oncommand="Firebug.MLConsoleModel.selectNoneMenu(this.parentNode.firstChild.id); Firebug.MLConsoleModel.updateToggleButtons();"/>
+				  </menupopup>
+				</toolbarbutton>-->
+				<hbox id="toggleButtons">
+					<toolbarbutton label="Level+ " type="radio" group="ConsoleGroup" id="toggleCustom" oncommand="Firebug.MLConsoleModel.levelPlusMenu()"/>
+					<toolbarbutton label="" type="menu" id="toggleMenuPlus">
+					<menupopup id="customLogLevelsMenu" onpopuphidden="Firebug.MLConsoleModel.hideCustomLevelPlus()"> <!--onpopupshown="Firebug.MLConsoleModel.showCustom()" onpopuphidden="Firebug.MLConsoleModel.hideCustomToggleMenu()">-->
+					  <vbox id="customLogLevelsMenuContainer">
+						  <menuitem label="Finest" type="checkbox" class="noticeui-finest" id="checknoticeui-finest" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Finer" type="checkbox" class="noticeui-finer" id="checknoticeui-finer" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Fine" type="checkbox" class="noticeui-fine" id="checknoticeui-fine" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Debug" type="checkbox" class="noticeui-debug" id="checknoticeui-debug" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Config" type="checkbox" class="noticeui-config" id="checknoticeui-config" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Info" type="checkbox" class="noticeui-info" id="checknoticeui-info" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Warning" type="checkbox" class="noticeui-warning" id="checknoticeui-warning" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Notice" type="checkbox" class="noticeui-notice" id="checknoticeui-notice" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Error" type="checkbox" class="noticeui-error" id="checknoticeui-error" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Critical" type="checkbox" class="noticeui-critical" id="checknoticeui-critical" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Alert" type="checkbox" class="noticeui-alert" id="checknoticeui-alert" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+						  <menuitem label="Emergency" type="checkbox" class="noticeui-emergency" id="checknoticeui-emergency" oncommand = "Firebug.MLConsoleModel.selectToggleButton(this.id)"/>
+					  </vbox>
+					  <menuseparator class="none"/>
+					  <menuitem label="Select defaults" class="plain" oncommand="Firebug.MLConsoleModel.selectDefaultLogLevels(this.parentNode.firstChild.id); Firebug.MLConsoleModel.updateToggleButtons();"/>
+					  <menuitem label="Select all" class="plain" oncommand="Firebug.MLConsoleModel.selectAllMenu(this.parentNode.firstChild.id); Firebug.MLConsoleModel.updateToggleButtons();"/>
+					  <menuitem label="Select none" class="plain" oncommand="Firebug.MLConsoleModel.selectNoneMenu(this.parentNode.firstChild.id); Firebug.MLConsoleModel.updateToggleButtons();"/>
+					</menupopup>
+					</toolbarbutton>
+					<!--<toolbarbutton label="Info " type="radio" group="ConsoleGroup" oncommand="Firebug.MLConsoleModel.toggleConsoleGroup('noticeui-info')" id="toggle-noticeui-info"/>-->
+				</hbox>
+				
+				<toolbarseparator/>
+				<toolbarbutton label="View entire log" command="cmd_viewWholeLog"/>
+				<toolbarseparator/>
+				<toolbarbutton label="Help" command="cmd_showHelp"/>
+				<!--<toolbarbutton label="Add to toolbar" oncommand="Firebug.MLConsoleModel.appendToToolbar()"/>
+                <toolbarbutton id="configLogButton"
+                    label="Config" class="toolbar-text-button"
+                    tooltiptext="Config log path" command="cmd_configmlLog"/>
+				<hbox id="boxLocalCofig" collapsed="true" flex="1">
+					<label value="Local path: " style="margin-top: 5px;"/>
+					<textbox flex="1" value="" id="textLocalPath"/>
+				</hbox>
+				<hbox id="boxRemoteCofig" collapsed="true" flex="1">
+					<label value="Username: " style="margin-top: 5px;"/>
+					<textbox value="" id="textRemoteAdmin"/>
+					<label value="Password: " style="margin-top: 5px;"/>
+					<textbox value="" id="textRemotePass" type="password"/>
+					<label value="Log URL: " style="margin-top: 5px;"/>
+					<textbox value="" flex="1" id="textRemoteURL"/>
+				</hbox>-->
+           </hbox>
+		   </vbox>
+       </hbox>
+    </toolbar>
+
+	<toolbarpalette id="BrowserToolbarPalette">
+
+        <!-- MLConsole toggle button -->
+	<hbox id="toolbar-consoleml-box">
+		<stack id="toolbar-consoleml-stack" mlLogCount="0">
+			<toolbarbutton id="toolbar-consoleml-button" label="ConsoleML" image="chrome://mlconsole/skin/ladybug16_2_bw.png"
+				class="toolbarbutton-1 chromeclass-toolbar-additional"
+				command="cmd_focusMLConsole" tooltiptext="Show MarkLogic console">
+			</toolbarbutton>
+			<label id="toolbar-consoleml-label" class="label" value="0" right="-11" top="5"/>			
+		</stack>
+	</hbox>
+    </toolbarpalette>
+	
+	<statusbar id="status-bar">
+		<hbox id="MLConsole-statusbar-box" onclick="Firebug.MLConsoleModel.focusOnPanel()" style="margin-left: 5px; margin-right: 5px; cursor: pointer;">
+			<vbox style="height: 16px; margin-top: 2px;"><image src="chrome://mlconsole/skin/ladybug16_2.png" style="cursor: pointer;"/></vbox>
+			<label value="ConsoleML" style="cursor: pointer;"/>
+		</hbox>
+	</statusbar>
+	
+</overlay>

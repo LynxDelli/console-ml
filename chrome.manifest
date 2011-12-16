@@ -1,0 +1,4 @@
+content mlconsole chrome/content/mlconsole/ xpcnativewrappers=no
+skin	mlconsole	classic/1.0	chrome/skin/classic/
+
+overlay chrome://firebug/content/firebugOverlay.xul         chrome://mlconsole/content/mlconsole.xul
