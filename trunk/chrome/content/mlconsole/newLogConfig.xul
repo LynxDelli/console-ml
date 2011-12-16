@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<window
+    id="newlog-window"
+    title="New log config"
+    orient="horizontal"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	onload="checkLogConfig()">
+<script src="chrome://mlconsole/content/logconfig.js" type="application/x-javascript"/>
+<tooltip id="pathTip" orient="vertical" style="background-color: #33DD00;">
+  <label value="Example log paths:"/>
+  <label value="Windows - C:\Program Files\MarkLogic\Data\Logs\ErrorLog.txt"/>
+  <label value="Linux - /var/opt/MarkLogic/data/Log/ErrorLog.txt"/> 
+  <label value="OS X - /Users/username/Library/Application Support/MarkLogic/Data/Logs/ErrorLog.txt"/>
+</tooltip>
+<tabbox id="myTabList" selectedIndex="0" flex="1">
+  <tabs>
+    <tab label="Local log" id="tabLocalLog"/>
+    <tab label="Remote log" id="tabRemoteLog"/>
+  </tabs>
+  <tabpanels flex="1">
+    <tabpanel>
+	<vbox flex="1">
+		<hbox style="margin-top: 5px;">
+			<label value="Log name:" style="width: 80px"/>
+			<textbox value="" id="textlocalName"/>
+			<label id="lblLocalName" value="" collapsed="true"/>
+		</hbox>
+		<hbox style="margin-top: 5px;" id="boxPath">
+			<label value="Log path:" style="width: 64px"/>
+			<vbox style="height: 16px; margin-top: 5px;">
+			<image src='chrome://mlconsole/skin/question.png' width="16" height="16" tooltip="pathTip"/>
+			</vbox>
+			<textbox value="" flex="1" id="textlocalPath"/>
+		</hbox>
+		<button label="Save" width="50px" oncommand="execLocalConfig()" style="margin-top: 10px; width: 50px" id="btnSaveLocal"></button>
+	</vbox>
+	</tabpanel>
+    <tabpanel flex="1">
+	<vbox flex="1">
+		<hbox style="margin-top: 5px;">
+			<label value="Log name:" style="width: 80px"/>
+			<textbox value="" id="textremoteName"/>
+			<label id="lblRemoteName" value="" collapsed="true"/>
+		</hbox>
+		<hbox style="margin-top: 5px;">
+			<label value="Log URL:" style="width: 80px"/>
+			<textbox value="" flex="1" id="textRemoteURL"/>
+		</hbox>
+		<hbox style="margin-top: 5px;">
+			<label value="Username:" style="width: 80px"/>
+			<textbox value="" id="textRemoteAdmin"/>
+		</hbox>
+		<hbox style="margin-top: 5px;">
+			<label value="Password:" style="width: 80px"/>
+			<textbox value="" id="textRemotePass" type="password"/>
+		</hbox>
+		<button label="Save" oncommand="execRemoteConfig()" style="margin-top: 10px; width: 50px" id="btnSaveRemote"></button>
+	</vbox>
+	</tabpanel>
+  </tabpanels>
+</tabbox>
+</window>
