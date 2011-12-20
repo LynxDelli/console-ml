@@ -50,10 +50,17 @@ var clipboard = null;
 var logConfigDialog;
 var logConfigObject;
 var currentDocument = window.document;
+var userCredentials = null;
 
 var wwatch = Components.classes["@mozilla.org/embedcomp/window-watcher;1"]
-              .getService(Components.interfaces.nsIWindowWatcher);
+                .getService(Components.interfaces.nsIWindowWatcher);
 
+var passwordManager = Components.classes["@mozilla.org/login-manager;1"]
+                        .getService(Components.interfaces.nsILoginManager);  
+						
+var nsLoginInfo = new Components.Constructor("@mozilla.org/login-manager/loginInfo;1",  
+                    Components.interfaces.nsILoginInfo, "init");
+			  
 /*variables that define the label with pending log messages in the toolbar*/
 var isMLServer = false;
 var pendingLogMessages = 0;
@@ -134,7 +141,7 @@ var mlConsoleTemplate = domplate(
   alert:		TAG("$log", {wrapperClass:"noticeui-alert", lvl:"Alert", logRows:"$rows"}),
   emergency:TAG("$log", {wrapperClass:"noticeui-emergency", lvl:"Emergency", logRows:"$rows"}),		
 		
-	toggleMessage: function(event)
+  toggleMessage: function(event)
   {
 		var srcTarget = jQuery(event.target);
 		var childElements = srcTarget.parent().find('.log-part-wrapper');
@@ -200,7 +207,71 @@ var mlmodel={
 		jQuery.noConflict();
 		//initialize web progress listnerers, tabbed browser listener and XHR requests listener
 		this.initModelListeners();
+		this.initPasswords();
     },
+	
+	initPasswords: function()
+	{
+		var passMigradted = this.getPrefBranch().getBoolPref("passwordsmigrated");
+		if (!passMigradted){//try to migrate all the passwords and store them using nsiPasswordManager - this will be done only once
+			this.getPrefBranch().setBoolPref("passwordsmigrated", true);
+			for (key in logConfigurations){
+				if (!logConfigurations[key].isLocal){
+					
+					//remote log, store password into password manager
+					this.storePassword(logConfigurations[key].path, logConfigurations[key].user, logConfigurations[key].pass);
+					logConfigurations[key].user = "";
+					logConfigurations[key].pass = "";
+				}
+			}
+		}
+		if (!logConfigurations[selectedLogConfig].isLocal){
+			//load user preferences on initialization, if the selected log config is remote
+			userCredentials = this.retrievePassword(logConfigurations[selectedLogConfig].path);
+		}
+	},
+	
+	storePassword: function(path, username, password){
+		try{
+			var loginInfo = new nsLoginInfo(this.stripHostData(path), path, null,
+				username, password, "", "");
+			passwordManager.addLogin(loginInfo);
+		} catch (e)
+		{
+			//thrown when the login already exists - in this case we are OK, because authentication will pass as expected
+		}
+	},
+	
+	deletePassword: function(path, usernm){
+		try {		   
+		   // Find users for this extension   
+		   var logins = passwordManager.findLogins({}, this.stripHostData(path), path, null);  
+				
+		   for (var i = 0; i < logins.length; i++) {  
+			  if (logins[i].username == usernm) {  
+				 passwordManager.removeLogin(logins[i]);  
+				 break;  
+			  }  
+		   }  
+		}  
+		catch(ex) {  
+		   // This will only happen if there is no nsILoginManager component class  
+		}
+	},
+	
+	stripHostData: function(path){
+		var prefix = "";
+		if (path.indexOf("://") != -1){
+			var splitPath = path.split("://");
+			prefix = splitPath[0] + "://";
+			path = splitPath[1];
+		}
+		if (path.indexOf("/") != -1){
+			path = path.substring(0, path.indexOf("/"));
+		}
+		path = prefix + path;
+		return(path);
+	},
 	
     initializeUI: function()
     {
@@ -256,11 +327,39 @@ var mlmodel={
 		this.getPrefBranch().setCharPref("selectedLogConfig", selectedLogConfig);
     },
 	
+	retrievePassword: function(path)
+	{
+		//this.stripHostData(path)
+		var userData = { user: "", pass: ""};
+
+		try {
+		     
+		    // Find users for the given parameters  
+		    var logins = passwordManager.findLogins({}, this.stripHostData(path), path, null);  
+			
+			if (logins.length > 0){
+				userData.user = logins[0].username;
+				userData.pass = logins[0].password;
+			}
+		}  
+		catch(ex) {  
+		   // This will only happen if there is no nsILoginManager component class  
+		}
+		
+		return userData;
+	},
+	
 	setLog: function(menuitem){
 		if(menuitem.getAttribute("checked") == "false"){
 			this.decheckLogConfigurations();
 			menuitem.setAttribute("checked", "true");
 			selectedLogConfig = menuitem.getAttribute("label");
+			if (!logConfigurations[selectedLogConfig].isLocal){
+				//load user preferences on initialization, if the selected log config is remote
+				userCredentials = this.retrievePassword(logConfigurations[selectedLogConfig].path);
+			} else {
+				userCredentials = null;
+			}
 		}
 	},
 	
@@ -289,9 +388,11 @@ var mlmodel={
 			local: logConfigurations[selectedLogConfig].isLocal,
 			name: selectedLogConfig,
 			path: logConfigurations[selectedLogConfig].path,
-			user: logConfigurations[selectedLogConfig].user,
-			pass: logConfigurations[selectedLogConfig].pass
 		};
+		if (userCredentials != null){
+			logConfigObject.user = userCredentials.user;
+			logConfigObject.pass = userCredentials.pass;
+		}
 		logConfigDialog = openDialog("chrome://mlconsole/content/newLogConfig.xul", "Edit log configuration", "chrome=yes,menubar=no,location=no,resizable=no,scrollbars=no,dialog=yes,centerscreen=yes,height=250,width=450", logConfigObject, this);
 	},
 	
@@ -301,11 +402,18 @@ var mlmodel={
 		} else {
 			var testLogError = this.testNewLogConfig();
 			if (testLogError.length == 0){
+				if (!logConfigurations[logConfigObject.name].isLocal){
+					//del old authentication and save new one!
+					this.deletePassword(logConfigurations[logConfigObject.name].path, userCredentials.user);
+					userCredentials.user = logConfigObject.user;
+					userCredentials.user  = logConfigObject.pass;
+					this.storePassword(logConfigurations[key].path, logConfigObject.user, logConfigObject.pass);
+				}
 				logConfigurations[logConfigObject.name] = {
 					isLocal: logConfigObject.local,
 					path: logConfigObject.path,
-					user: logConfigObject.user,
-					pass: logConfigObject.pass
+					user: "",
+					pass: ""
 				};
 			} else {
 				return testLogError;
@@ -340,10 +448,17 @@ var mlmodel={
 			//set the first log configuration as checked
 			configsContainer.firstChild.setAttribute("checked", "true");
 			//delete prop from skip count and config object
+			if (!logConfigurations[selectedLogConfig].isLocal){//for remote configurations - also remove password from password manager
+				this.deletePassword(logConfigurations[selectedLogConfig].path, userCredentials.user);
+				userCredentials = null;
+			}
 			delete logConfigurations[selectedLogConfig];
 			delete skipLogPath[selectedLogConfig];
 			selectedLogConfig = configsContainer.firstChild.getAttribute("label");
-			
+			if (!logConfigurations[selectedLogConfig].isLocal){
+				//load user preferences on initialization, if the selected log config is remote
+				userCredentials = this.retrievePassword(logConfigurations[selectedLogConfig].path);
+			}
 		} else {
 			alert("Deletion denied - you can not delete the last configuration!");
 		}
@@ -365,6 +480,12 @@ var mlmodel={
 					user: logConfigObject.user,
 					pass: logConfigObject.pass
 				};
+				if (!logConfigurations[logConfigObject.name].isLocal){
+					//save the user login data
+					this.storePassword(logConfigurations[logConfigObject.name].path, logConfigurations[logConfigObject.name].user, logConfigurations[logConfigObject.name].pass);
+					logConfigurations[logConfigObject.name].user = "";
+					logConfigurations[logConfigObject.name].pass = "";
+				}
 				this.addLogConfiguration(logConfigurations[logConfigObject.name], logConfigObject.name);
 			} else {
 				return testLogError;
@@ -609,7 +730,7 @@ var mlmodel={
 			inputStream.close();
 		} else {
 			Firebug.MLConsoleModel.readRemoteLog(logConfigurations[selectedLogConfig].path,
-				logConfigurations[selectedLogConfig].user, logConfigurations[selectedLogConfig].pass, isXHRRequest);
+				userCredentials.user, userCredentials.pass, isXHRRequest);
 		}
     },
 	
@@ -619,7 +740,7 @@ var mlmodel={
 			+ "<div style='margin-left: 0px; float: left;'>"
 			+ "<br/><span>Your input is highly appreciated. Please, write us at </span>"
 			+ "<a href='mailto:consoleml@sirma.bg'>consoleml@sirma.bg</a></div>";
-		this.openPopup("ConsoleML for Firebug, v1.0.4", content, 125);
+		this.openPopup("ConsoleML for Firebug, v1.0.6", content, 125);
 		
 	},
 	
@@ -652,10 +773,10 @@ var mlmodel={
 				var divMessage = (panelChildren[i].getAttribute("class").indexOf("noticeui-message") != -1);
 				if (!divMessage){
 					if (copyAll || (!copyAll && !divHidden)){//continue if we have to copy all messages or if we have to copy only filtered messages AND the div is not hidden
-						var divChildren = panelChildren[i].childNodes;
+						var divChildren = panelChildren[i].childNodes[1].childNodes;
 						for (j=0; j<divChildren.length; j++){
 							if (divChildren[j].nodeName.toUpperCase() == "P"){
-									copytxt += divChildren[j].textContent;
+									copytxt += divChildren[j].textContent+"\n";
 								}
 						}
 					}
@@ -668,24 +789,26 @@ var mlmodel={
 	tryUpdateLogAfterXHR : function(){
 		updateRequestsWaiting--;
 		if (updateRequestsWaiting == 0){
+			var logSkipBeforeUpdate = skipLogPath[selectedLogConfig];
 			Firebug.MLConsoleModel.viewLogPressed(true);
+			var newLogMessagesFound = (logSkipBeforeUpdate != skipLogPath[selectedLogConfig]);
 			var detachedOnTop = false;
 			if (wwatch.activeWindow.location == FIREBUG_OVERLAY_LOCATION){
 				detachedOnTop = true;
 			}
 			if (!isPanelOpened){
 				//store the event in the log count and show it in the ladybug button
-				pendingLogMessages++;
-				Firebug.MLConsoleModel.updateButtonMsgLabel();
+				if (newLogMessagesFound)
+					pendingLogMessages++;
 			} else {
 				if (Firebug.isDetached() && !detachedOnTop){//MLConsole panel is opened, but it's in detached mode and not on top of the other window
-					pendingLogMessages++;
-					Firebug.MLConsoleModel.updateButtonMsgLabel();
+					if (newLogMessagesFound)
+						pendingLogMessages++;
 				} else {
 					pendingLogMessages = 0;
-					Firebug.MLConsoleModel.updateButtonMsgLabel();
 				}
 			}
+			Firebug.MLConsoleModel.updateButtonMsgLabel();
 		}
 	},
 	
@@ -1139,24 +1262,27 @@ var mlmodel={
 							updateRequestsWaiting = 0;
 							xhrRequests = { count: 0 };
 							if (mlVisitor.isMLServer()){
+								var logSkipBeforeUpdate = skipLogPath[selectedLogConfig];
 								Firebug.MLConsoleModel.viewLogPressed(false);
+								var newLogMessagesFound = (logSkipBeforeUpdate != skipLogPath[selectedLogConfig]);
 								var detachedOnTop = false;
 								if (wwatch.activeWindow.location == FIREBUG_OVERLAY_LOCATION){
 									detachedOnTop = true;
 								}
 								if (!isPanelOpened){
 									//store the event in the log count and show it in the ladybug button
-									pendingLogMessages++;
-									Firebug.MLConsoleModel.updateButtonMsgLabel();
+									if (newLogMessagesFound)
+										pendingLogMessages++;
+									
 								} else {
 									if (Firebug.isDetached() && !detachedOnTop){//MLConsole panel is opened, but it's in detached mode and not on top of the other window
-										pendingLogMessages++;
-										Firebug.MLConsoleModel.updateButtonMsgLabel();
+										if (newLogMessagesFound)
+											pendingLogMessages++;
 									} else {
 										pendingLogMessages = 0;
-										Firebug.MLConsoleModel.updateButtonMsgLabel();
 									}
 								}
+								Firebug.MLConsoleModel.updateButtonMsgLabel();
 							} else {
 								if (isMLServer){//user goes from ML page to non-ML page
 									isMLServer = false;

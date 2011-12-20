@@ -8,3 +8,4 @@ pref("extensions.fbmlconsole.togglestatus", '');
 pref("extensions.fbmlconsole.togglebuttons", 'notice#warning#info');
 pref("extensions.fbmlconsole.logConfigurations", "");
 pref("extensions.fbmlconsole.selectedLogConfig", "default local log");
+pref("extensions.fbmlconsole.passwordsmigrated", false);
