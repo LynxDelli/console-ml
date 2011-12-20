@@ -25,7 +25,7 @@
             <hbox id="fbMLConsoleButtons">
 				<toolbarbutton type="menu" image="chrome://mlconsole/skin/ladybug16_2.png">
 				  <menupopup>
-					<menu id="menuCopy" label="Copy">
+					<menu id="menuCopy" label="Copy to clipboard">
 						<menupopup id="copy-popup">
 							<menuitem id="menuCopyAll" label="All messages" command="cmd_copyLogAll"/>
 							<menuitem id="menuCopySelected" label="Filtered messages" command="cmd_copyLogFiltered"/>
