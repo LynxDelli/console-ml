@@ -10,8 +10,7 @@
 <li>A new tab 'ConcoleML' will be visible in Firebug. Open it and click on the Log link to setup your log configuration. </li>
 </ul>
 
-http://sirmasolutions.com/images/consoleML-screenshot1.jpg
-
+http://sirmasolutions.com/templates/sirmatemplate/images/mlConsolescreenshot1.png
 = http://sirmasolutions.com/images/ladybugSmall.png Buttons information: =
 
 <p>LadyBird drop-down button gives you opportunity to save Entire log or just filtered log.</p>
