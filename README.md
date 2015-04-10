@@ -10,8 +10,7 @@ MarkLogic leads the advancement of Big Data with the first operational database 
 
 <ul>
 <li>You need to have Firebug installed on Firefox; </li>
-<li>Go to project webpage - http://sirmasolutions.com/products/ml-firefox-console
-or go to official Firefox Plugin page - https://addons.mozilla.org/en-US/firefox/addon/marklogic-console-for-fireb/
+<li>Go to project webpage - official Firefox Plugin page - https://addons.mozilla.org/en-US/firefox/addon/marklogic-console-for-fireb/
 </li>
 <li>Click the green button "Add to Firefox' and the plugin will start installing;</li>
 <li>You will need to restart your Firefox after successful completion; </li>
