@@ -16,8 +16,9 @@ MarkLogic leads the advancement of Big Data with the first operational database 
 <li>A new tab 'ConcoleML' will be visible in Firebug. Open it and click on the Log link to setup your log configuration. </li>
 </ul>
 
-http://sirmasolutions.com/templates/sirmatemplate/images/mlConsole/screenshot1.png
-= http://sirmasolutions.com/images/ladybugSmall.png Buttons information: =
+<img src='http://sirmasolutions.com/templates/sirmatemplate/images/mlConsole/screenshot1.png' />
+
+#<img src='http://sirmasolutions.com/images/ladybugSmall.png' /> Buttons information:
 
 <p><img src='http://sirmasolutions.com/images/ladybugSmall.png' /> drop-down button gives you opportunity to save Entire log or just filtered log.</p>
 
