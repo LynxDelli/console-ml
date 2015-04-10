@@ -4,7 +4,7 @@ http://www.marklogic.com/
 
 MarkLogic leads the advancement of Big Data with the first operational database technology for mission-critical Big Data Applications.
 
-<h1>http://sirmasolutions.com/images/ladybugSmall.png How To Install:</h1>
+<h1><img src='http://sirmasolutions.com/images/ladybugSmall.png' /> How To Install:</h1>
 
 <ul>
 <li>You need to have Firebug installed on Firefox; </li>
