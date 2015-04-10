@@ -1,6 +1,4 @@
-#summary One-sentence summary of this page.
-
-= MarkLogic =
+#MarkLogic
 
 http://www.marklogic.com/
 
@@ -21,9 +19,9 @@ MarkLogic leads the advancement of Big Data with the first operational database 
 http://sirmasolutions.com/templates/sirmatemplate/images/mlConsole/screenshot1.png
 = http://sirmasolutions.com/images/ladybugSmall.png Buttons information: =
 
-<p>![alt tag](http://sirmasolutions.com/images/ladybugSmall.png) drop-down button gives you opportunity to save Entire log or just filtered log.</p>
+<p><img src='http://sirmasolutions.com/images/ladybugSmall.png' /> drop-down button gives you opportunity to save Entire log or just filtered log.</p>
 
-<p>http://sirmasolutions.com/images/ladybugSmall.png drop-down button gives you opportunity to change how log is displayed.</p>
+<p><img src='http://sirmasolutions.com/images/ladybugSmall.png' /> drop-down button gives you opportunity to change how log is displayed.</p>
 
 <p>The Clear button clears the buffered log messages. When clicked, only new messages will be displayed.</p>
 
@@ -39,7 +37,7 @@ http://sirmasolutions.com/templates/sirmatemplate/images/mlConsole/screenshot1.p
 
 <p>ConsoleML have build-in search within visible log - next match, previous match, highlight all matches. You can find the search at the top right corner of the plugin</p>
 
-= http://sirmasolutions.com/images/ladybugSmall.png Setting up a log configuration: =
+#<img src='http://sirmasolutions.com/images/ladybugSmall.png' /> Setting up a log configuration:
 
 <p>The <b>Log name</b> is only meaningful to the user. It is not, for example, the name of the error log file.</p>
 
