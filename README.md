@@ -1,3 +1,5 @@
+Deprecated 
+
 #MarkLogic
 
 http://www.marklogic.com/
